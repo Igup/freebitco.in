@@ -35,7 +35,7 @@ js.include = function (path) {
 //if ( !js.include('Folders') ) throw new Error("Module include error: Folders");
 if ( !js.include('BaseOfAnswers') ) throw new Error("Module include error: BaseOfAnswers");
 
-var BaseOfAnswers = BaseOfAnswers();
+var BaseOfAnswers = new BaseOfAnswers;
 BaseOfAnswers.valueToKey();
 
 /*
