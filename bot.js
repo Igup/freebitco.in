@@ -30,13 +30,10 @@ js.include = function (path) {
 
 };
 
-js.include("Tabs");
-//Tabs.go(2);
 
-/*
+
 try {
-    //js.include("Tabs");
-    //js.include("Proxy");
+    js.include("Tabs");
     //Tabs.go(2);
 }
 catch (e) {
@@ -44,5 +41,4 @@ catch (e) {
     throw new Error("stop");
 
 }
-*/
 
