@@ -37,4 +37,4 @@ if ( !js.include('BaseOfAnswers') ) throw new Error("Module include error: BaseO
 
 
 Tabs.go(2);
-//BaseOfAnswers;
+BaseOfAnswers;
