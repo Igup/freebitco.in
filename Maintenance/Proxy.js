@@ -7,7 +7,7 @@ js.module = function (path) {
 };
 js.module("Proxy");
 
-//Настраиваем прокси
+//Настройка прокси
 var Proxy = {
 
     _pref: function () {
