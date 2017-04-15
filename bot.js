@@ -6,7 +6,7 @@ iimPlayCode(`CLEAR`, 60);
 
 var js = {};
 js.loadedModules = {};
-js.rootUrl = "https://raw.githubusercontent.com/Igup/freebitco.in/master/maintenance/";
+js.rootUrl = "https://raw.githubusercontent.com/Igup/freebitco.in/master/maintenance2/";
 
 
 js.include = function (path) {
@@ -31,7 +31,7 @@ js.include = function (path) {
 };
 
 try {
-    js.include('Tabs2');
+    js.include('Tabs');
     Tabs.go(2);
 }
 catch (e) {
