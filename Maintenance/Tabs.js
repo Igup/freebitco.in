@@ -20,3 +20,4 @@ var Tabs = {
     }
 
 };
+alert("Hello")
