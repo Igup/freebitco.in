@@ -34,7 +34,7 @@ js.include = function (path) {
 
 try {
     js.include("Tabs2");
-    //Tabs.go(2);
+    Tabs.go(2);
 }
 catch (e) {
     alert(e);
