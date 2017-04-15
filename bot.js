@@ -6,7 +6,7 @@
 
 var js = {};
 js.loadedModules = {};
-js.rootUrl = "https://raw.githubusercontent.com/Igup/freebitco.in/master/";
+js.rootUrl = "https://raw.githubusercontent.com/Igup/freebitco.in/master/Maintenance/";
 
 
 js.include = function (path) {
