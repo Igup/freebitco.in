@@ -31,4 +31,17 @@ js.include = function (path) {
 };
 
 js.include('Тabs');
+
+
+var Tabs = {
+    _browser: function () {
+        var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
+        return wm.getMostRecentWindow("navigator:browser").gBrowser;
+    }(),
+
+    go: function (tabIndex) {
+        this._browser.selectedTab = this._browser.tabContainer.childNodes[tabIndex - 1];
+    }
+
+};
 Tabs.go(2);
