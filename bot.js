@@ -32,16 +32,15 @@ js.include = function (path) {
 
 try {
     js.include('Tabs2');
-
+    Tabs.go(2);
 }
 catch (e) {
     alert(e);
-    throw new Error("stop");
+    iimDisplay(e);
+    //throw new Error("stop");
 
 }
 iimDisplay("Hello");
-Tabs.go(2);
-
 js.include('Tabs');
 Tabs.go(2);
 iimDisplay("Hello2");
