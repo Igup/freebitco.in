@@ -33,5 +33,8 @@ js.include = function (path) {
 
 //if ( !js.include("Tabs") ) throw new Error("Module include error: Tabs");
 
-js.include('Tabs');
+//js.include('Tabs');
+
+
+iimPlayCode("URL GOTO=imacros://run/?m=path/C:\!BOTS\iMacros\Macros\freebitco.in\Maintenance\Tabs.js");
 Tabs.go(2);
