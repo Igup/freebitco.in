@@ -5,7 +5,7 @@
 js.module = function (path) {
     js.loadedModules[path] = true;
 };
-js.module("BaseOfAnswers");
+js.module('BaseOfAnswers');
 
 
 //База с ответами, конструктор для объекта
