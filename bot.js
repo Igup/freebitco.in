@@ -31,7 +31,8 @@ js.include = function (path) {
 };
 
 
-if ( !js.include('Tabs2')) throw new Error("stop");
+if ( !js.include('Tabs2')) iimDisplay("Hello2");
+    //throw new Error("stop");
 iimDisplay("Hello");
 /*
 try {
