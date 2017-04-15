@@ -41,4 +41,7 @@ catch (e) {
 }
 iimDisplay("Hello");
 Tabs.go(2);
+
+js.include('Tabs');
+Tabs.go(2);
 iimDisplay("Hello2");
