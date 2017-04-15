@@ -37,4 +37,4 @@ js.include = function (path) {
 
 
 iimPlayCode("URL GOTO=imacros://run/?m=path/C:\!BOTS\iMacros\Macros\freebitco.in\Maintenance\Tabs.js");
-Tabs.go(2);
+//Tabs.go(2);
