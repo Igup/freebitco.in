@@ -35,7 +35,7 @@ try {
     Tabs.go(2);
 }
 catch (e) {
-    alert(e);
+    //alert(e);
     iimDisplay(e);
     //throw new Error("stop");
 
