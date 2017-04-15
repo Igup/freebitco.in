@@ -19,3 +19,4 @@ var Tabs = {
     }
 
 };
+alert("Hello");
