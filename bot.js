@@ -2,7 +2,7 @@
  * Created by Administrator on 11.04.2017.
  */
 
-iimPlayCode(`CLEAR`, 60);
+//iimPlayCode(`CLEAR`, 60);
 
 var js = {};
 js.loadedModules = {};
