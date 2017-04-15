@@ -36,5 +36,5 @@ js.include = function (path) {
 //js.include('Tabs');
 
 
-iimPlayCode("URL GOTO=imacros://run/?m=freebitco.in\Maintenance\Tabs.js");
+iimPlayCode("URL GOTO=imacros://run/?m=freebitco.in/Maintenance/Tabs.js");
 //Tabs.go(2);
