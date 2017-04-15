@@ -30,5 +30,5 @@ js.include = function (path) {
 
 };
 
-//js.include('Tabs');
+js.include('Tabs');
 //Tabs.go(2);
