@@ -7,7 +7,7 @@ iimPlayCode(`CLEAR`, 60);
 //js.js
 var js = {};
 js.loadedModules = {};
-js.rootUrl = "https://raw.githubusercontent.com/Igup/freebitco.in/master/MMaintenance/";
+js.rootUrl = "https://raw.githubusercontent.com/Igup/freebitco.in/master/Maintenance/";
 js.include = function (path) {
     if (js.loadedModules[path]) return;
 
