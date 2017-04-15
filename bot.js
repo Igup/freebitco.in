@@ -31,7 +31,7 @@ js.include = function (path) {
 };
 
 
-if ( !js.include('Tabs2')) throw new Error("Error module includ: Tabs");
+if ( !js.include('Tabs')) throw new Error("Error module includ: Tabs");
 iimDisplay("Hello");
 /*
 try {
