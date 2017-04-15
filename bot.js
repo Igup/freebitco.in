@@ -4,11 +4,9 @@
 
 iimPlayCode(`CLEAR`, 60);
 
-var js = {};
+//var js = {};
 js.loadedModules = {};
 js.rootUrl = "https://raw.githubusercontent.com/Igup/freebitco.in/master/maintenance/";
-
-
 js.include = function (path) {
     if (js.loadedModules[path]) return;
 
@@ -42,7 +40,6 @@ catch (e) {
     //alert(e);
     iimDisplay(e);
     //throw new Error("stop");
-
 }
 iimDisplay("Hello");
 js.include('Tabs');
