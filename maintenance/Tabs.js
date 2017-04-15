@@ -6,7 +6,7 @@
 js.module = function (path) {
     js.loadedModules[path] = true;
 };
-js.module("Tabs");
+js.module("maintenance.Tabs");
 
 //Управление ТАБам
 var Tabs = {
