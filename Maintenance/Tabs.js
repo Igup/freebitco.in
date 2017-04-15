@@ -2,7 +2,6 @@
  * Created by Igup on 12.04.2017.
  */
 
-
 js.module = function (path) {
     js.loadedModules[path] = true;
 };
