@@ -36,7 +36,7 @@ if ( !js.include('Tabs') ) throw new Error("Module include error: Tabs");
 if ( !js.include('BaseOfAnswers') ) throw new Error("Module include error: BaseOfAnswers");
 
 Tabs.go(2);
-BaseOfAnswers;
+//BaseOfAnswers;
 //answers.valueToKey();
 
 /*
