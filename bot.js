@@ -36,7 +36,7 @@ js.include = function (path) {
 if ( !js.include('BaseOfAnswers') ) throw new Error("Module include error: BaseOfAnswers");
 
 
-BaseOfAnswers;
+//BaseOfAnswers;
 //answers.valueToKey();
 
 /*
