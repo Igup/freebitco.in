@@ -33,7 +33,7 @@ js.include = function (path) {
 if ( !js.include('Tabs') ) throw new Error("Module include error: Tabs");
 if ( !js.include('Proxy') ) throw new Error("Module include error: Proxy");
 if ( !js.include('Folders') ) throw new Error("Module include error: Folders");
-if ( !js.include('BaseOfAnswers') ) throw new Error("Module include error: BaseOfAnswers");
+//if ( !js.include('BaseOfAnswers') ) throw new Error("Module include error: BaseOfAnswers");
 
 
 Tabs.go(2);
