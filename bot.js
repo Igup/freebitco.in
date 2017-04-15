@@ -30,8 +30,6 @@ js.include = function (path) {
 
 };
 
-var tabs = {};
-
 try {
     js.include('Tabs2');
 
