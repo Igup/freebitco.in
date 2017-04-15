@@ -20,7 +20,6 @@ function BaseOfAnswers () {
 }
 
 //Меняем местами ключ и значение, чтобы было удобнее искать ответы
-/*
 BaseOfAnswers.prototype.valueToKey = function () {
     for (var key in this) {
         var val = this.key;
@@ -28,4 +27,3 @@ BaseOfAnswers.prototype.valueToKey = function () {
         delete this.key;
     }
 };
-    */
