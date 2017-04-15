@@ -34,4 +34,4 @@ js.include = function (path) {
 //if ( !js.include("Tabs") ) throw new Error("Module include error: Tabs");
 
 js.include('Tabs');
-Tabs;
+//Tabs;
