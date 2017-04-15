@@ -31,4 +31,4 @@ js.include = function (path) {
 };
 
 js.include('Tabs');
-//Tabs.go(2);
+Tabs.go(2);
