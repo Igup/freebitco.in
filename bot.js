@@ -29,8 +29,9 @@ js.include = function (path) {
     return true;
 
 };
+
 js.include("Tabs");
-Tabs.go(2);
+//Tabs.go(2);
 
 /*
 try {
