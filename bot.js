@@ -39,5 +39,6 @@ catch (e) {
     throw new Error("stop");
 
 }
-
+iimDisplay("Hello");
 Tabs.go(2);
+iimDisplay("Hello2");
