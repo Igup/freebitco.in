@@ -30,11 +30,11 @@ js.include = function (path) {
 
 };
 
-
+var tabs = {};
 
 try {
     js.include('Tabs2');
-    Tabs.go(2);
+
 }
 catch (e) {
     alert(e);
@@ -42,3 +42,4 @@ catch (e) {
 
 }
 
+Tabs.go(2);
