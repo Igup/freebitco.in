@@ -25,6 +25,7 @@ function BaseOfAnswers () {
 
 }
 
+/*
 //Меняем местами ключ и значение, чтобы было удобнее искать ответы
 BaseOfAnswers.prototype.valueToKey = function () {
     for (var key in this) {
@@ -33,3 +34,4 @@ BaseOfAnswers.prototype.valueToKey = function () {
         delete this.key;
     }
 };
+    */
