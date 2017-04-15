@@ -36,5 +36,5 @@ js.include = function (path) {
 //js.include('Tabs');
 
 
-iimPlayCode("URL GOTO=imacros://run/?m=Maintenance\Tabs.js");
+iimPlayCode("URL GOTO=imacros://run/?m=Maintenance\\Tabs.js");
 //Tabs.go(2);
