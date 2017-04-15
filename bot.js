@@ -2,6 +2,7 @@
  * Created by Administrator on 11.04.2017.
  */
 
+//noinspection JSAnnotator
 iimPlayCode(`CLEAR`, 60);
 
 //js.js
