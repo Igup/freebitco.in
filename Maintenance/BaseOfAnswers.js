@@ -26,7 +26,6 @@ function BaseOfAnswers () {
 }
 
 //Меняем местами ключ и значение, чтобы было удобнее искать ответы
-
 BaseOfAnswers.prototype.valueToKey = function () {
     alert("Hello");
     for (var key in this) {
