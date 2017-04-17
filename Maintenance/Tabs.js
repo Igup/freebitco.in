@@ -21,4 +21,4 @@ Tabs = {
 
 };
 
-alert("hello");
+alert(Tabs._browser);
