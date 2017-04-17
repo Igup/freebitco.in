@@ -30,7 +30,6 @@ js.include = function (path) {
 
 };
 
-var Tabs = {};
 js.include('Tabs');
 js.include('Folders');
 js.include('Proxy');
