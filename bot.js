@@ -35,4 +35,3 @@ js.include('Tabs');
 js.include('Folders');
 Tabs.go(2);
 var F = Folders();
-alert (F.downloads);
