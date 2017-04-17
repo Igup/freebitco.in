@@ -36,4 +36,4 @@ BaseOfAnswers.prototype.valueToKey = function () {
     }
 };
 
-var BaseOfAnswers = new BaseOfAnswers;
+var BOF = new BaseOfAnswers;
