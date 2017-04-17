@@ -1,5 +1,5 @@
 /**
- * Created by Administrator on 11.04.2017.
+ * Created by Igup on 11.04.2017.
  */
 
 iimPlayCode(`CLEAR`, 60);
