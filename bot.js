@@ -32,4 +32,4 @@ js.include = function (path) {
 
 js.include('Tabs');
 
-Tabs.go(2);
+js.Tabs.go(2);

@@ -8,8 +8,7 @@ js.module = function (path) {
 js.module("Tabs");
 
 //Управление ТАБам
-var Tabs;
-Tabs = {
+js.Tabs = {
     _browser: function () {
         var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
         return wm.getMostRecentWindow("navigator:browser").gBrowser;
@@ -20,5 +19,3 @@ Tabs = {
     }
 
 };
-
-alert(Tabs.go(2));
