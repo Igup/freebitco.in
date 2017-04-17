@@ -33,8 +33,13 @@ js.include = function (path) {
 js.include('Tabs');
 js.include('Folders');
 js.include('Proxy');
+js.include('BaseOfAnswers');
+
 Tabs.go(2);
+
 var Folders = new Folders;
 alert(Folders.downloads);
 
 Proxy.set();
+var BaseOfAnswers = new BaseOfAnswers;
+BaseOfAnswers.valueToKey();
