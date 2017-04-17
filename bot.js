@@ -30,6 +30,7 @@ js.include = function (path) {
 
 };
 
+var Tabs;
 js.include('Tabs');
 //var Tabs = js.Tabs;
 Tabs.go(2)
