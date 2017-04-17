@@ -28,9 +28,10 @@ function Answers () {
 //Меняем местами ключ и значение, чтобы было удобнее искать ответы
 Answers.prototype.valueToKey = function () {
     for (var key in this) {
+        //TODO: добавить проверку hasOwnProperty
         var val = this[key];
         this[val] = key;
-        //delete BaseOfAnswers.ans;
+        delete this[key];
     }
 };
 
