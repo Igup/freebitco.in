@@ -27,7 +27,6 @@ function Answers () {
 
 //Меняем местами ключ и значение, чтобы было удобнее искать ответы
 Answers.prototype.valueToKey = function () {
-    alert("Hello");
     for (var key in this) {
         var val = this[key];
         this[val] = key;
