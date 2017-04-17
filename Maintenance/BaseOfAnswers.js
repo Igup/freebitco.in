@@ -34,3 +34,6 @@ BaseOfAnswers.prototype.valueToKey = function () {
         //delete BaseOfAnswers.ans;
     }
 };
+
+var BaseOfAnswers = new BaseOfAnswers;
+BaseOfAnswers.valueToKey();
