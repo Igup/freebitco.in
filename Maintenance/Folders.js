@@ -8,7 +8,7 @@ js.module = function (path) {
 js.module("Folders");
 
 //Определение путей
-function Folders() {
+js.Folders = function Folders() {
 
     var ds = function () {
         iimPlayCode(`SET !EXTRACT {{!FOLDER_DATASOURCE}}`);
@@ -19,4 +19,4 @@ function Folders() {
     this.downloads = iMacros + "Downloads";
     this.macros = iMacros + "Macros";
     this.datasources = ds;
-}
+};
