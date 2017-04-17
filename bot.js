@@ -34,7 +34,7 @@ js.include('Tabs');
 js.include('Folders');
 js.include('Proxy');
 Tabs.go(2);
-
+var Folders = new Folders;
 alert(Folders.downloads);
 
 Proxy.set();
