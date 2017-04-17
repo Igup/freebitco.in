@@ -34,4 +34,4 @@ var Tabs = {};
 js.include('Tabs');
 js.include('Folders');
 Tabs.go(2);
-var F = Folders();
+var F = new Folders;
