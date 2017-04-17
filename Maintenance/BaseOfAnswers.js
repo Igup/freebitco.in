@@ -37,3 +37,4 @@ BaseOfAnswers.prototype.valueToKey = function () {
 };
 
 var BOF = new BaseOfAnswers;
+BOF.valueToKey();
