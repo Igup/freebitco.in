@@ -8,7 +8,7 @@ js.module = function (path) {
 js.module("Folders");
 
 //Определение путей
-js.Folders = function Folders() {
+Folders = function Folders() {
 
     var ds = function () {
         iimPlayCode(`SET !EXTRACT {{!FOLDER_DATASOURCE}}`);
