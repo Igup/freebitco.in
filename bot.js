@@ -43,3 +43,4 @@ alert(Folders.downloads);
 Proxy.set();
 var BaseOfAnswers = new BaseOfAnswers;
 BaseOfAnswers.valueToKey();
+alert(BaseOfAnswers."Good Vibes Only");
