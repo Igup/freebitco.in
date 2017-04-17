@@ -30,7 +30,7 @@ function BaseOfAnswers () {
 BaseOfAnswers.prototype.valueToKey = function () {
     alert("Hello");
     for (var ans in this) {
-        alert(ans);
+        alert(BaseOfAnswers[ans]);
         //var val = this.key;
         //this.val = key;
         //delete BaseOfAnswers.ans;
