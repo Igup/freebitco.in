@@ -28,8 +28,9 @@ BaseOfAnswers = function BaseOfAnswers () {
 //Меняем местами ключ и значение, чтобы было удобнее искать ответы
 BaseOfAnswers.prototype.valueToKey = function () {
     for (var ans in this) {
+        alert(this.ans);
         //var val = this.key;
         //this.val = key;
-        delete BaseOfAnswers.ans;
+        //delete BaseOfAnswers.ans;
     }
 };
