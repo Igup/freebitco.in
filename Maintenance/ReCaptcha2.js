@@ -100,7 +100,7 @@ ReCaptcha2.prototype.getAnswer = function () {
     }
     if (res.status == 1) {
         //todo добавить получение ответа
-        window.Console.log(res)
+        window.console.log(res);
     } else {
         this.answer.hasError = true;
         this.answer.errorText = "An error occurred while solving ReCaptcha2 by ruCaptcha" + xhr.status;
