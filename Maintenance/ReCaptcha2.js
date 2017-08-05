@@ -73,25 +73,52 @@ ReCaptcha2.prototype.getAnswer = function () {
         xhr.send(params);
         if (xhr.status !== 200) {
             this.answer.hasError = true;
-            this.answer.errorText = "An error occurred while loading ReCaptcha2 answer from ruCaptcha " + xhr.status;
+            this.answer.errorText = "An error occurred while loading ReCaptcha2 solveID from ruCaptcha " + xhr.status;
             return false;
         } else {
             if (res = JSON.parse(xhr.responseText)) {
-                var reqCount = 0;
+
                 if (res.status == 1) {
-                    //todo добавить макрохедер
-                    iimPlayCode('WAIT SECONDS=5');
-                    url = "http://rucaptcha.com/res.php";
-                    params = "key=" + this.key + "&action=get&id=" + res.request + "&json=1";
-                } else {
-                    //todo описать перезапуск
+                    var reqCount = 0;
+                    var status = false;
+                    while (reqCount < 14 || status != 1) {
+                        //todo добавить макрохедер
+                        iimPlayCode('WAIT SECONDS=5');
+                        url = "http://rucaptcha.com/res.php";
+                        params = "key=" + this.key + "&action=get&id=" + res.request + "&json=1";
+                        xhr = new XMLHttpRequest();
+                        xhr.open('POST', url, false);
+                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+                        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                        xhr.timeout = 60000;
+                        try {
+                            xhr.send(params);
+                            if (xhr.status != 200) {
+                                this.answer.hasError = true;
+                                this.answer.errorText = "An error occurred while loading ReCaptcha2 answer from ruCaptcha " + xhr.status;
+                                return false;
+                            } else {
+
+                            }
+
+                        } catch (e) {
+                            this.answer.hasError = true;
+                            this.answer.errorText = e.name;
+                        }
+                    }
                     this.answer.hasError = true;
                     this.answer.errorText = "An error occurred while solving ReCaptcha2 by ruCaptcha" + xhr.status;
                     return false;
+                } else {
+                    //ruCaptcha отдает ответ в неизвестном формате
+                    this.answer.hasError = true;
+                    this.answer.errorText = "Unexpected content while loading ReCaptcha2 solveID from ruCaptcha " + xhr.status;
+                    return false;
                 }
             } else {
+                //ruCaptcha отдает ответ в неизвестном формате
                 this.answer.hasError = true;
-                this.answer.errorText = "Unexpected content while loading ReCaptcha2 answer from ruCaptcha " + xhr.status;
+                this.answer.errorText = "Unexpected content while loading ReCaptcha2 solveID from ruCaptcha " + xhr.status;
                 return false;
             }
 
