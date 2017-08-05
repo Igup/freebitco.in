@@ -60,7 +60,7 @@ ReCaptcha2.prototype.getAnswer = function () {
     this.pageurl = window.location.host;
 
     //var url = "http://rucaptcha.com/in.php";
-    var url = "ru.ru";
+    var url = "http://ru.ru";
     var params = "key=" + this.key + "&method=userrecaptcha&googlekey=" + this.googlekey + "&pageurl=" + this.pageurl + "&json=true&header_acao=1" + proxy + soft_id;
 
     var XMLHttpRequest = Components.Constructor("@mozilla.org/xmlextras/xmlhttprequest;1");
