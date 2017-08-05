@@ -35,5 +35,5 @@ Answers.prototype.valueToKey = function () {
     }
 };
 
-BaseOfAnswers = new Answers;
-BaseOfAnswers.valueToKey();
+//BaseOfAnswers = new Answers;
+//BaseOfAnswers.valueToKey();
