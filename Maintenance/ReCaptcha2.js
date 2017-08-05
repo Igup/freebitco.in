@@ -89,7 +89,8 @@ ReCaptcha2.prototype.getAnswer = function () {
     this.googlekey  = window.document.querySelector('.g-recaptcha').getAttribute('data-sitekey');
     this.pageurl = window.location.host;
 
-    var url = "http://rucaptcha.com/in.php2";
+    //var url = "http://rucaptcha.com/in.php2";
+    var url = "http://ru.ru";
     var params = "key=" + this.key + "&method=userrecaptcha&googlekey=" + this.googlekey + "&pageurl=" + this.pageurl + "&json=true&header_acao=1" + proxy + soft_id;
 
     var res = req(url, params);
