@@ -30,7 +30,11 @@ function ReCaptcha2() {
 
 // Методы хранятся в прототипе
 ReCaptcha2.prototype.getAnswer = function () {
-    function req(url, params) {
+    function req(url, params,
+
+    this
+    )
+    {
         if (url && params) {
         } else {
             this.answer.hasError = true;
@@ -94,10 +98,11 @@ ReCaptcha2.prototype.getAnswer = function () {
 
     var res = req(url, params);
     window.console.log(res);
-    if (res) {
-        res = JSON.parse(res);
+    if (res = JSON.parse(res)) {
     } else {
-
+        this.answer.hasError = true;
+        this.answer.errorText = "Unexpected content while loading ReCaptcha2 answer from ruCaptcha " +
+        return false;
     }
     if (res.status == 1) {
         //todo добавить получение ответа
