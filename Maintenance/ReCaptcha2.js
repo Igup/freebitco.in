@@ -76,8 +76,7 @@ ReCaptcha2.prototype.getAnswer = function () {
             this.answer.errorText = "An error occurred while loading ReCaptcha2 solveID from ruCaptcha " + xhr.status;
             return false;
         } else {
-            if (res = JSON.parse(xhr.responseText)) {
-
+            var res = JSON.parse(xhr.responseText);
                 if (res.status == 1) {
                     var reqCount = 0;
                     var status = false;
@@ -104,6 +103,7 @@ ReCaptcha2.prototype.getAnswer = function () {
                         } catch (e) {
                             this.answer.hasError = true;
                             this.answer.errorText = e.name + ":" + e.message + "\n" + e.stack;
+                            return false;
                         }
                     }
                     this.answer.hasError = true;
@@ -115,13 +115,6 @@ ReCaptcha2.prototype.getAnswer = function () {
                     this.answer.errorText = "Unexpected content while loading ReCaptcha2 solveID from ruCaptcha " + xhr.status;
                     return false;
                 }
-            } else {
-                //ruCaptcha отдает ответ в неизвестном формате
-                this.answer.hasError = true;
-                this.answer.errorText = "Unexpected content while loading ReCaptcha2 solveID from ruCaptcha " + xhr.status;
-                return false;
-            }
-
         }
     } catch (e) {
         this.answer.hasError = true;
