@@ -1,7 +1,7 @@
 /**
  * Created by Igup on 15.04.2017.
  */
-aler("Hello");
+alert("Hello");
 
 js.module = function (path) {
     js.loadedModules[path] = true;
