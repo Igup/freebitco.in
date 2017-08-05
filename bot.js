@@ -7,7 +7,7 @@ iimPlayCode(`CLEAR`, 60);
 var js = {};
 js.loadedModules = {};
 js.rootUrl = "https://raw.githubusercontent.com/Igup/freebitco.in/master/Maintenance/";
-https://raw.githubusercontent.com/Igup/freebitco.in/master/bot.js
+//https://raw.githubusercontent.com/Igup/freebitco.in/master/bot.js
 
 
 js.include = function (path) {
@@ -27,14 +27,16 @@ js.include = function (path) {
 
     var code = transport.responseText;
     eval(code);
+
     return true;
 
 };
 
+
 js.include('Tabs');
 js.include('Folders');
 js.include('Proxy');
-js.include('BaseOfAnswers');
+//js.include('BaseOfAnswers');
 
 //Tabs.go(2);
 
@@ -43,6 +45,7 @@ js.include('BaseOfAnswers');
 
 //Proxy.set();
 
+iimPlayCode("URL GOTO=imacros://run/?m=https://raw.githubusercontent.com/Igup/freebitco.in/master/Maintenance/BaseOfAnswers.js")
 BaseOfAnswers = new Answers;
 BaseOfAnswers.valueToKey();
 
