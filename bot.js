@@ -219,6 +219,8 @@ js.include('BaseOfAnswers');
 js.include('ReCaptcha2');
 
 ReCaptcha2 = new ReCaptcha2;
+
+ReCaptcha2.key = "c4f4987d224486ca348baf75ae9d88ab";
 ReCaptcha2.getAnswer();
 
 window.console.log(ReCaptcha2.answer);
