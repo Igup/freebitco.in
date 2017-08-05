@@ -30,10 +30,11 @@ function ReCaptcha2() {
 
 // Методы хранятся в прототипе
 ReCaptcha2.prototype.getAnswer = function () {
-    function request(url, params) {
+    function req(url, params) {
         if (url && params) {
             alert("Hello!");
         } else {
+            alert("false");
             this.answer.hasError = true;
             this.answer.errorText = "An error occurred while solving ReCaptcha2 by ruCaptcha: ruCaptcha URL or Params not defined";
             return false;
@@ -93,7 +94,7 @@ ReCaptcha2.prototype.getAnswer = function () {
     var url = "http://rucaptcha.com/in.php";
     var params = "key=" + this.key + "&method=userrecaptcha&googlekey=" + this.googlekey + "&pageurl=" + this.pageurl + "&json=true&header_acao=1" + proxy + soft_id;
 
-    var res = request(url, params);
+    var res = req(url, params);
     if (res) {
         res = JSON.parse(res);
     }
