@@ -13,6 +13,8 @@ js.module('ReCaptcha2');
 function ReCaptcha2() {
 
     this.key			 = false;
+    this.proxy = false;
+    this.proxytype = false;
 
     this.soft_id         = false;
     this.macrosHeader	 = false;
@@ -28,6 +30,37 @@ function ReCaptcha2() {
 
 // Методы хранятся в прототипе
 ReCaptcha2.prototype.getAnswer = function () {
+    function request(url, params) {
+        if (url && params) {
+        } else {
+            this.answer.hasError = true;
+            this.answer.errorText = "An error occurred while solving ReCaptcha2 by ruCaptcha: ruCaptcha URL or Params not defined";
+            return false;
+        }
+
+        var XMLHttpRequest = Components.Constructor("@mozilla.org/xmlextras/xmlhttprequest;1");
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url, false);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.timeout = 60000;
+        try {
+            xhr.send(params);
+            if (xhr.status !== 200) {
+                this.answer.hasError = true;
+                this.answer.errorText = "An error occurred while loading ReCaptcha2 answer from ruCaptcha" + xhr.status;
+                return false;
+            } else {
+                return xhr.responseText;
+            }
+        } catch (e) {
+            this.answer.hasError = true;
+            this.answer.errorText = e.name;
+            return false;
+        }
+    }
+
+
     //Проверка, что на странице есть Recaptcha
     if ( window.document.querySelector('.g-recaptcha') === null ) {
         this.answer.hasError = true;
@@ -41,43 +74,32 @@ ReCaptcha2.prototype.getAnswer = function () {
         this.answer.errorText = "ruCaptcha apiKey not defined.";
         return false;
     }
+
+    //Проверка, что proxy подключено
+    var proxy = "";
+    if (this.proxy && this.proxytype) {
+        proxy = "&proxy=" + this.proxy + "&proxytype=" + this.proxytype;
+    }
     //Проверка, что soft_id определен
     var soft_id = "";
     if (this.soft_id) {
-        soft_id = "soft_id=" + this.soft_id
+        soft_id = "&soft_id=" + this.soft_id
     }
 
     this.googlekey  = window.document.querySelector('.g-recaptcha').getAttribute('data-sitekey');
     this.pageurl = window.location.host;
 
-    var params = "key=" + this.key + "&method=userrecaptcha&googlekey=" + this.googlekey + "&pageurl=" + this.pageurl + "&json=true&header_acao=1" + soft_id;
-    var XMLHttpRequest = Components.Constructor("@mozilla.org/xmlextras/xmlhttprequest;1");
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', "http://rucaptcha.com/in.php", false);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    xhr.timeout = 60000;
+    var url = "http://rucaptcha.com/in.php";
+    var params = "key=" + this.key + "&method=userrecaptcha&googlekey=" + this.googlekey + "&pageurl=" + this.pageurl + "&json=true&header_acao=1" + proxy + soft_id;
 
-    try {
-        xhr.send(params);
-        if (xhr.status !== 200) {
-            this.answer.hasError = true;
-            this.answer.errorText = "An error occurred while loading ReCaptcha2 answer from ruCaptcha" + xhr.status;
-            return false;
-        } else {
-            var res = JSON.parse(xhr.responseText);
-            if (res.status == 1) {
-                //todo добавить получение ответа
-                window.console.log(params);
-            } else {
-                this.answer.hasError = true;
-                this.answer.errorText = "An error occurred while solving ReCaptcha2 by ruCaptcha" + xhr.status;
-                return false;
-            }
-        }
-    } catch (e) {
+    if (res = request(url, params)) {
+        res = JSON.parse(res);
+    }
+    if (res.status == 1) {
+        //todo добавить получение ответа
+    } else {
         this.answer.hasError = true;
-        this.answer.errorText = e.name;
+        this.answer.errorText = "An error occurred while solving ReCaptcha2 by ruCaptcha" + xhr.status;
         return false;
     }
 
