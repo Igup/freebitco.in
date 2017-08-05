@@ -35,6 +35,7 @@ Answers.prototype.valueToKey = function () {
         delete this[key];
     }
 };
-
-//BaseOfAnswers = new Answers;
-//BaseOfAnswers.valueToKey();
+/*Подключаем Класс и его методы
+BaseOfAnswers = new Answers;
+BaseOfAnswers.valueToKey();
+ */
