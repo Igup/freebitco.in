@@ -59,8 +59,7 @@ ReCaptcha2.prototype.getAnswer = function () {
     this.googlekey  = window.document.querySelector('.g-recaptcha').getAttribute('data-sitekey');
     this.pageurl = window.location.host;
 
-    //var url = "http://rucaptcha.com/in.php";
-    var url = "http://ru.ru";
+    var url = "http://rucaptcha.com/in.php";
     var params = "key=" + this.key + "&method=userrecaptcha&googlekey=" + this.googlekey + "&pageurl=" + this.pageurl + "&json=true&header_acao=1" + proxy + soft_id;
 
     var XMLHttpRequest = Components.Constructor("@mozilla.org/xmlextras/xmlhttprequest;1");
@@ -97,9 +96,8 @@ ReCaptcha2.prototype.getAnswer = function () {
                                 this.answer.errorText = "An error occurred while loading ReCaptcha2 answer from ruCaptcha " + xhr.status;
                                 return false;
                             } else {
-
+                                //todo описать получение результата
                             }
-
                         } catch (e) {
                             this.answer.hasError = true;
                             this.answer.errorText = e.name + ":" + e.message + "\n" + e.stack;
