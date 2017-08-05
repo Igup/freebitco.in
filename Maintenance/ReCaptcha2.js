@@ -103,9 +103,7 @@ ReCaptcha2.prototype.getAnswer = function () {
 
                         } catch (e) {
                             this.answer.hasError = true;
-                            this.answer.errorText = e.name + ":" + e.message + "\n" + e.stack
-                        )
-                            ;
+                            this.answer.errorText = e.name + ":" + e.message + "\n" + e.stack;
                         }
                     }
                     this.answer.hasError = true;
@@ -127,9 +125,7 @@ ReCaptcha2.prototype.getAnswer = function () {
         }
     } catch (e) {
         this.answer.hasError = true;
-        this.answer.errorText = e.name + ":" + e.message + "\n" + e.stack
-    )
-        ;
+        this.answer.errorText = e.name + ":" + e.message + "\n" + e.stack;
         return false;
     }
 }
