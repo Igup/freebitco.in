@@ -94,11 +94,23 @@ ReCaptcha2.prototype.getAnswer = function () {
     var params = "key=" + this.key + "&method=userrecaptcha&googlekey=" + this.googlekey + "&pageurl=" + this.pageurl + "&json=true&header_acao=1" + proxy + soft_id;
 
     var res = req(url, params);
+    window.console.log(res);
     if (res) {
         res = JSON.parse(res);
+    } else {
+
     }
     if (res.status == 1) {
         //todo добавить получение ответа
+        var reqCount = 0;
+        while (reqCount > 14) {
+            //todo добавить макрохедер
+            iimPlayCode('WAIT SECONDS=5');
+            url = "http://rucaptcha.com/res.php";
+            params = "key=" + this.key + "&action=get&id=" + res.request + "&json=1";
+
+
+        }
         window.console.log(res);
     } else {
         this.answer.hasError = true;
