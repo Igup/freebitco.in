@@ -78,10 +78,16 @@ ReCaptcha2.prototype.getAnswer = function () {
         } else {
             if (res = JSON.parse(xhr.responseText)) {
                 var reqCount = 0;
-                while (reqCount < 15 || res.status !== 1) {
-
+                if (res.status == 1) {
+                    //todo добавить макрохедер
+                    iimPlayCode('WAIT SECONDS=5');
+                    url = "http://rucaptcha.com/res.php";
+                    params = "key=" + this.key + "&action=get&id=" + res.request + "&json=1";
                 } else {
                     //todo описать перезапуск
+                    this.answer.hasError = true;
+                    this.answer.errorText = "An error occurred while solving ReCaptcha2 by ruCaptcha" + xhr.status;
+                    return false;
                 }
             } else {
                 this.answer.hasError = true;
@@ -95,27 +101,6 @@ ReCaptcha2.prototype.getAnswer = function () {
         this.answer.errorText = e.name;
         return false;
     }
-
-    if (res.status == 1) {
-        //todo добавить получение ответа
-        var reqCount = 0;
-        while (reqCount > 14) {
-            //todo добавить макрохедер
-            iimPlayCode('WAIT SECONDS=5');
-            url = "http://rucaptcha.com/res.php";
-            params = "key=" + this.key + "&action=get&id=" + res.request + "&json=1";
-            res = req(url, params, this);
-
-
-
-        }
-        window.console.log(res);
-    } else {
-        this.answer.hasError = true;
-        this.answer.errorText = "An error occurred while solving ReCaptcha2 by ruCaptcha" + xhr.status;
-        return false;
-    }
-
 }
 
 /*Подключаем Класс и его методы
