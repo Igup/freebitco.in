@@ -32,6 +32,7 @@ function ReCaptcha2() {
 ReCaptcha2.prototype.getAnswer = function () {
     function request(url, params) {
         if (url && params) {
+            aler("Hello!");
         } else {
             this.answer.hasError = true;
             this.answer.errorText = "An error occurred while solving ReCaptcha2 by ruCaptcha: ruCaptcha URL or Params not defined";
