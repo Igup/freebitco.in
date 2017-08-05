@@ -93,7 +93,8 @@ ReCaptcha2.prototype.getAnswer = function () {
     var url = "http://rucaptcha.com/in.php";
     var params = "key=" + this.key + "&method=userrecaptcha&googlekey=" + this.googlekey + "&pageurl=" + this.pageurl + "&json=true&header_acao=1" + proxy + soft_id;
 
-    if (res = request(url, params)) {
+    var res = request(url, params);
+    if (res) {
         res = JSON.parse(res);
     }
     if (res.status == 1) {
