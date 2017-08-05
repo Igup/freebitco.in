@@ -1,9 +1,9 @@
 /**
  * Created by Igup on 11.04.2017.
  */
-/*
-iimPlayCode(`CLEAR`, 60);
 
+iimPlayCode(`CLEAR`, 60);
+/*
 var js = {};
 js.loadedModules = {};
 js.rootUrl = "https://raw.githubusercontent.com/Igup/freebitco.in/master/Maintenance/";
