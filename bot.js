@@ -170,8 +170,12 @@ js.module = function(path, version) {
 js.include = function(path, version) {
     version = version || 1.0;
     if(js.loadedModules[path] && js.loadedModules[path] >= version) return false;
-    var transport = js.getXHTTPTransport();
-    transport.open('GET', js.pathToUrl(path, version), false);
+    //var transport = js.getXHTTPTransport();
+    var transport = Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"].createInstance(Components.interfaces.nsIXMLHttpRequest);
+    var async = false;
+
+    transport.open("GET", js.rootUrl + path.replace(/\./g, "/") + ".js", async);
+    //transport.open('GET', js.pathToUrl(path, version), false);
     transport.send(null);
 
     var code = transport.responseText;
