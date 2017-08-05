@@ -251,3 +251,5 @@ restorejs = function(obj) {
 js.include('BaseOfAnswers');
 BaseOfAnswers = new Answers;
 BaseOfAnswers.valueToKey();
+
+alert(BaseOfAnswers.test_val);
