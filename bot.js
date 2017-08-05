@@ -45,7 +45,7 @@ js.include('Proxy');
 
 //Proxy.set();
 
-iimPlayCode("URL GOTO=imacros://run/?m=C:/Users/sun/Documents/GitHub/freebitco.in/Maintenance/BaseOfAnswers.js")
+iimPlayCode("URL GOTO=imacros://run/?m=freebitco.in/Maintenance/BaseOfAnswers.js")
 BaseOfAnswers = new Answers;
 BaseOfAnswers.valueToKey();
 
