@@ -220,4 +220,5 @@ js.include('ReCaptcha2');
 
 ReCaptcha2 = new ReCaptcha2;
 ReCaptcha2.getAnswer();
+
 window.console.log(ReCaptcha2.answer);

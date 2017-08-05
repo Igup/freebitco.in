@@ -83,8 +83,7 @@ ReCaptcha2.prototype.getAnswer = function () {
 
 }
 
-ReCaptcha2 = new ReCaptcha2;
-ReCaptcha2.getAnswer();
+
 /*Подключаем Класс и его методы
  ReCaptcha2 = new ReCaptcha2;
  ReCaptcha2.getAnswer();
