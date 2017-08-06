@@ -13,6 +13,6 @@ function Bitcofarm() {
     Fauset.apply(this, arguments);
 }
 // Унаследовать
-Freebitcoin.prototype = Object.create(Fauset.prototype);
+Bitcofarm.prototype = Object.create(Fauset.prototype);
 // Желательно и constructor сохранить
-Freebitcoin.prototype.constructor = Freebitcoin;
+Bitcofarm.prototype.constructor = Freebitcoin;
