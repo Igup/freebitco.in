@@ -50,7 +50,6 @@ ReCaptcha2.prototype.getAnswer = function () {
             } catch (e) {
                 throw new Error(xhr.responseText);
             }
-            window.console.log(res);
             if (res && res.status != 1) {
                 if (res.request == 'CAPCHA_NOT_READY' && reqCount < 35) {
                     reqCount++;
@@ -118,4 +117,7 @@ ReCaptcha2.prototype.getAnswer = function () {
 /*Подключаем Класс и его методы
  ReCaptcha2 = new ReCaptcha2;
  ReCaptcha2.getAnswer();
+ ReCaptcha2.proxy="логин:пароль@123.123.123.123:3128";
+ ReCaptcha2.proxytype = "SOCKS5";
+ ReCaptcha2.soft_id = "ID разработчика ПО"
  */
