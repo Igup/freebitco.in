@@ -30,6 +30,45 @@ function ReCaptcha2() {
 
 // Методы хранятся в прототипе
 ReCaptcha2.prototype.getAnswer = function () {
+    function req(url, params) {
+        var answer = {
+            isSolved: false,
+            hasError: false,
+            errorText: '',
+            answerText: ''
+        }
+        xhr = new XMLHttpRequest();
+        xhr.open('POST', url, false);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.timeout = 60000;
+        try {
+            xhr.send(params);
+            if (xhr.status != 200) throw new Error(xhr.responseText + " - " + xhr.status);
+            try {
+                var res = JSON.parse(xhr.responseText);
+            } catch (e) {
+                throw new Error(xhr.responseText);
+            }
+            window.console.log(res);
+            if (res && res.status != 1) {
+                if (res.request == 'CAPCHA_NOT_READY' && reqCount < 35) {
+                    reqCount++;
+                    iimPlayCode('WAIT SECONDS=5');
+                    return req(url, params);
+                } else {
+                    throw new Error(res.request);
+                }
+            }
+            answer.isSolved = true;
+            answer.answerText = res.request;
+            return answer;
+        } catch (e) {
+            answer.hasError = true;
+            answer.errorText = e.name + " ReCaptcha2 unsolve by ruCaptcha: " + e.message;
+            return answer;
+        }
+    }
 
     //Проверка, что на странице есть Recaptcha
     if ( window.document.querySelector('.g-recaptcha') === null ) {
@@ -62,62 +101,17 @@ ReCaptcha2.prototype.getAnswer = function () {
     var url = "http://rucaptcha.com/in.php";
     var params = "key=" + this.key + "&method=userrecaptcha&googlekey=" + this.googlekey + "&pageurl=" + this.pageurl + "&json=true&header_acao=1" + proxy + soft_id;
 
-    var XMLHttpRequest = Components.Constructor("@mozilla.org/xmlextras/xmlhttprequest;1");
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', url, false);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    xhr.timeout = 60000;
-    try {
-        xhr.send(params);
-        if (xhr.status !== 200) {
-            this.answer.hasError = true;
-            this.answer.errorText = "An error occurred while loading ReCaptcha2 solveID from ruCaptcha " + xhr.status;
-            return false;
-        } else {
-            var res = JSON.parse(xhr.responseText);
-                if (res.status == 1) {
-                    var reqCount = 0;
-                    var status = false;
-                    while (reqCount < 14 || status != 1) {
-                        //todo добавить макрохедер
-                        iimPlayCode('WAIT SECONDS=5');
-                        url = "http://rucaptcha.com/res.php";
-                        params = "key=" + this.key + "&action=get&id=" + res.request + "&json=1";
-                        xhr = new XMLHttpRequest();
-                        xhr.open('POST', url, false);
-                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-                        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                        xhr.timeout = 60000;
-                        try {
-                            xhr.send(params);
-                            if (xhr.status != 200) {
-                                this.answer.hasError = true;
-                                this.answer.errorText = "An error occurred while loading ReCaptcha2 answer from ruCaptcha " + xhr.status;
-                                return false;
-                            } else {
-                                //todo описать получение результата
-                            }
-                        } catch (e) {
-                            this.answer.hasError = true;
-                            this.answer.errorText = e.name + ":" + e.message + "\n" + e.stack;
-                            return false;
-                        }
-                    }
-                    this.answer.hasError = true;
-                    this.answer.errorText = "An error occurred while solving ReCaptcha2 by ruCaptcha" + xhr.status;
-                    return false;
-                } else {
-                    //ruCaptcha отдает ответ в неизвестном формате
-                    this.answer.hasError = true;
-                    this.answer.errorText = "Unexpected content while loading ReCaptcha2 solveID from ruCaptcha " + xhr.status;
-                    return false;
-                }
+    var reqCount = 0;
+    ans = req(url, params);
+    if (ans.isSolved) {
+        url = "http://rucaptcha.com/res.php";
+        params = "key=" + this.key + "&action=get&id=" + ans.answerText + "&json=1";
+        this.answer = req(url, params);
+        this.answer.ruCaptchaID = ans.answerText;
+        if (this.answer.isSolved) {
+            window.document.querySelector('.g-recaptcha-response').style = "";
+            window.document.querySelector('.g-recaptcha-response').textContent = this.answer.answerText;
         }
-    } catch (e) {
-        this.answer.hasError = true;
-        this.answer.errorText = e.name + ":" + e.message + "\n" + e.stack;
-        return false;
     }
 }
 
