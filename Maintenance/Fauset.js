@@ -40,6 +40,15 @@ function Fauset() {
 // Методы хранятся в прототипе
 Fauset.prototype.getCookies = function () {
 
+    /**
+     *
+     var ios = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
+     var cookieUri = ios.newURI("http://www.yourplacewhereyouwanttosetthecookie.com/", null, null);
+     var cookieSvc = Components.classes["@mozilla.org/cookieService;1"].getService(Components.interfaces.nsICookieService);
+
+     cookieSvc.setCookieString(cookieUri, null, "your_key=your_value;", null);
+     */
+
     this.cookies = window.document.cookie.split(';');
 
 };
