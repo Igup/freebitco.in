@@ -12,6 +12,14 @@
  * Date: 2017-03-20T18:59Z
  */
 
+
+/**
+ js.include('jquery');
+ $ = window.$;
+ JQuery = window.JQuery;
+ jQuery = window.JQuery;
+ */
+
 js.module = function (path) {
     js.loadedModules[path] = true;
 };
