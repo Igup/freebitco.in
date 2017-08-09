@@ -58,14 +58,14 @@ ElementScreenshot = {
         // To take a snapshot of entire window
         // ctx.drawWindow(mainWindow.content, 0, 0, mainWindow.innerWidth, mainWindow.innerHeight, "rgb(255,255,255)");
         ctx.drawWindow(_mainWindow.content, x, y, width, height, "rgb(255,255,255)");
-
+        /**
         var cnvs2 = window.document.createElement("canvas");
         cnvs2.width = 266;
         cnvs2.height = 133;
         ctx = cnvs2.getContext("2d");
         ctx.drawImage(cnvs, 0, 0, cnvs2.width, cnvs2.height);
-
-        return (cnvs2.toDataURL().replace(/^data:image\/(png|jpg);base64,/, ""));
-        //return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+         */
+        //return (cnvs2.toDataURL().replace(/^data:image\/(png|jpg);base64,/, ""));
+        return (cnvs.toDataURL());
     }
 }

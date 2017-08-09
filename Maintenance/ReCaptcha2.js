@@ -111,6 +111,8 @@ ReCaptcha2.prototype.getAnswer = function () {
             window.document.querySelector('.g-recaptcha-response').style = "";
             window.document.querySelector('.g-recaptcha-response').textContent = this.answer.answerText;
         }
+    } else {
+        //todo описать негативный вариант anы.hasError
     }
 }
 
