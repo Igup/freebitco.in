@@ -6,9 +6,9 @@
 js.module = function (path) {
     js.loadedModules[path] = true;
 };
-js.module('ruCaptcha');
+js.module('RuCaptcha');
 
-function ruCaptcha() {
+function RuCaptcha() {
 
     this.key = false;
     this.proxy = false;
@@ -24,15 +24,15 @@ function ruCaptcha() {
      }
      */
 
-    this.connect = function () {
-        alert("Hello");
+    this.connect = function (base64) {
+        alert(base64);
     }
 
-};
+}
 
-ruCaptcha.prototype.solveBase64 = function (base64) {
-    this.connect();
+RuCaptcha.prototype.solveBase64 = function (base64) {
+    this.connect(base64);
 };
-ruCaptcha.prototype.solveReCaptcha = function (googlekey, pageurl) {
+RuCaptcha.prototype.solveReCaptcha = function (googlekey, pageurl) {
 
 };
