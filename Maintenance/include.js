@@ -1,6 +1,25 @@
 /**
  * @author Vladimir Kolesnikov <voloko@gmail.com>
  * @copyright (c) Vladimir Kolesnikov <voloko@gmail.com>
+ * Include in main JS Object and Propertys from custom script.js by URL
+ *
+ * Enable code:
+ var js = {
+        version: '1.1.7_als',
+        rootUrl: 'CUSTOM_URL',
+        context: this,
+        versioninig: false
+    }
+ js.include = function(path) {
+        //todo: (перенести загрузку по сети из include.js)
+        var loadFile = function (fileName) {
+            var fileDescriptor = imns.FIO.openNode(fileName);
+            return imns.FIO.readTextFile(fileDescriptor);
+        }
+        eval(loadFile("LOCAL_PATCH_TO include.js"));
+    }
+ js.include('include');
+ js.include('CUSTOM_SCRIPT');
  */
 
 /**
@@ -141,7 +160,6 @@ js.include = function (path, version) {
     }
     var pth = "C:\\Users\\sun\\Documents\\GitHub\\freebitco.in\\Maintenance\\" + path + ".js";
     var code = loadFile(pth);
-
     (typeof execScript != 'undefined') ? execScript(code) :
         (js.context.eval ? js.context.eval(code) : eval(code));
     return true;
