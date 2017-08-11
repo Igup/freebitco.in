@@ -2,10 +2,11 @@
  * Created by Igup on 06.08.2017.
  */
 
-js.module = function (path) {
-    js.loadedModules[path] = true;
-};
-js.module('Fauset');
+if (typeof js !== 'undefined') {
+    js.module('Fauset');
+    js.include('WorkWithFile');
+
+}
 
 // --------- Класс-Родитель сборщика с кранов ------------
 // Конструктор родителя пишет свойства конкретного объекта
@@ -16,17 +17,15 @@ function Fauset() {
     this.fausetURL = '';
     this.fausetLogin = '';
     this.fausetPass = '';
-    this.fausetBTC = '';
+    this.fausetBTCWallet = '';
     this.fausetRefer = '';
     this.proxy = false;
     this.proxyIP = '1.1.1.1';
     this.proxyPort = '80';
     this.proxyLogin = '123';
     this.proxyPass = '312';
-    this.proxyAuthtoken = 'test';
-    this.cookie = false;
-    this.fausetMaxRate = 0;
-    this.fausetBalance = 0;
+    this.proxyType = 'SOCKS5';
+    this.proxyAuthtoken = 'Authtoken';
     this.lastSbor = 0;
     this.macrosHeader = '';
     this.macrosHeader += 'SET !EXTRACT_TEST_POPUP NO' + '\n';
@@ -38,45 +37,17 @@ function Fauset() {
 
 }
 // Методы хранятся в прототипе
-Fauset.prototype.getCookies = function () {
-
-    /**
-     *
-     var ios = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
-     var cookieUri = ios.newURI("http://www.yourplacewhereyouwanttosetthecookie.com/", null, null);
-     var cookieSvc = Components.classes["@mozilla.org/cookieService;1"].getService(Components.interfaces.nsICookieService);
-
-     cookieSvc.setCookieString(cookieUri, null, "your_key=your_value;", null);
-     */
-
-    this.cookies = window.document.cookie.split(';');
-
-};
-Fauset.prototype.setCookies = function () {
-
-    if (this.cookies) {
-        for (var i = 0; i < this.cookies.length; i++) {
-            window.document.cookie = this.cookies[i];
-        }
-    }
-
-};
+//todo подключить класс proxy
 Fauset.prototype.clearCookies = function () {
     iimPlayCode('CLEAR');
 };
-//todo подключить класс proxy
-/**
- Fauset.prototype.setProxy = function () {
-
-    if (this.proxyIP && this.proxyPort && this.proxyAuthtoken) {
-        Proxy.set(this.proxyIP, this.proxyPort, this.proxyAuthtoken);
-    } else {
-        Proxy.setDefaultProxy();
+Fauset.prototype.load_FromFile = function (fileName) {
+    WorkWithFile = new WorkWithFile;
+    var obj = WorkWithFile.readJSONFromFile(fileName).fausetName;
+    for (var key in obj) {
+        this[key] = obj[key]
     }
+};
 
-}
- Fauset.prototype.setDefaultProxy = function () {
 
-    //Proxy.set();
-}
- */
+

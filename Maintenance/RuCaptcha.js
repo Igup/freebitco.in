@@ -34,11 +34,10 @@ function RuCaptcha() {
     this.proxy = false;
     this.proxytype = false;
     this.soft_id = false;
-
     /**
      * @param url
      * @param params
-     * @returns {*}
+     * @returns {{isSolved: boolean, hasError: boolean, errorText: string, answerText: string}}
      */
     this.request = function (url, params) {
         var reqCount = 0;
@@ -57,9 +56,11 @@ function RuCaptcha() {
             xhr.send(params);
             if (xhr.status !== 200) throw new Error('Connection Error:' + xhr.status + ' ' + xhr.responseText);
             try {
+                //todo вставить обработку конкретных ошибок https://rucaptcha.com/api-rucaptcha#error_handling и настроить тамауты https://rucaptcha.com/api-rucaptcha#limits
+                //window.console.log( xhr.responseText );
                 var res = JSON.parse(xhr.responseText);
             } catch (e) {
-                throw new Error('JSON parse error: ' + xhr.responseText);
+                throw new Error(e.message + ':\n ' + xhr.responseText + '\n');
             }
             if (res && res.status !== 1) {
                 if (res.request === 'CAPCHA_NOT_READY') {
@@ -74,19 +75,32 @@ function RuCaptcha() {
             answer.answerText = res.request;
         } catch (e) {
             answer.hasError = true;
-            answer.errorText = 'ruCaptcha request Error: ' + e.message;
+            answer.errorText = 'ruCaptcha request Error: ' + e.message + '\n stack: ' + e.stack;
         }
         return answer;
     };
 }
 
+//todo добавить метод проверки баланса
+//todo добавить метод проверки текущей цены за капчу
+/**
+ * @param id
+ */
+RuCaptcha.prototype.reportWrongAnswer = function (id) {
+    try {
+        var url = "http://rucaptcha.com/res.php";
+        var params = "key=" + this.key + "&action=reportbad&id=" + id + "&json=1";
+        this.request(url, params);
+    } catch (e) {
+    }
+};
+
 /**
  *
  * @param options
- * @returns {{isSolved: boolean, hasError: boolean, errorText: string, answerText: string, ruCaptchaID: string}}
+ * @returns {{isSolved: boolean, hasError: boolean, errorText: string, answerText: string, ruCaptchaID: string, Price: number}}
  */
 RuCaptcha.prototype.getAnswer = function (options) {
-
     var url = '';
     var params = '';
     var proxy = '';
@@ -96,21 +110,20 @@ RuCaptcha.prototype.getAnswer = function (options) {
         hasError: false,
         errorText: '',
         answerText: '',
-        ruCaptchaID: ''
+        ruCaptchaID: '',
+        Price: 0
     };
     try {
         if (!options.method) {
             throw new Error('ruCaptcha options.method not defined.');
         } else if (options.method === "base64") {
             if (options.base64) {
-                url = "http://rucaptcha.com/in2.php";
                 params = "key=" + this.key + "&method=base64&json=true&header_acao=1&body=" + encodeURIComponent(options.base64);
             } else {
                 throw new Error('ruCaptcha options.base64 for method "base64" not defined.');
             }
         } else if (options.method === "userrecaptcha") {
             if (options.googlekey && options.pageurl) {
-                url = "http://rucaptcha.com/in.php";
                 params = "key=" + this.key + "&method=userrecaptcha&googlekey=" + options.googlekey + "&pageurl=" + options.pageurl + "&json=true&header_acao=1";
             } else if (!options.googlekey) {
                 throw new Error('ruCaptcha options.googlekey for method "userrecaptcha" not defined.');
@@ -129,26 +142,28 @@ RuCaptcha.prototype.getAnswer = function (options) {
         if (this.soft_id) {
             soft_id = "&soft_id=" + this.soft_id
         }
+        url = "http://rucaptcha.com/in.php";
         params = params + proxy + soft_id;
         var ans = this.request(url, params);
         if (ans.isSolved) {
             answer.ruCaptchaID = ans.answerText;
             url = "http://rucaptcha.com/res.php";
-            params = "key=" + this.key + "&action=get&id=" + answer.ruCaptchaID + "&json=1";
+            params = "key=" + this.key + "&action=get2&id=" + answer.ruCaptchaID + "&json=1";
+            iimPlayCode('WAIT SECONDS=20');
             ans = this.request(url, params);
             if (ans.isSolved) {
                 answer.isSolved = true;
-                answer.answerText = ans.answerText;
+                answer.answerText = ans.answerText.split('|')[0];
+                answer.Price = +ans.answerText.split('|')[1];
             } else {
-                throw new Error(ans.answerText);
+                throw new Error(ans.errorText);
             }
         } else {
-            throw new Error(ans.answerText);
+            throw new Error(ans.errorText);
         }
     } catch (e) {
         answer.hasError = true;
-        answer.errorText = e.name + ' Captcha unsolve by ruCaptcha: ' + e.message;
-        ;
+        answer.errorText = e.name + ': Captcha unsolved by ruCaptcha: ' + e.message + '\n stack: ' + e.stack;
     }
     return answer;
 };
