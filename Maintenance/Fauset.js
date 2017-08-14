@@ -5,14 +5,14 @@
 if (typeof js !== 'undefined') {
     js.module('Fauset');
     js.include('WorkWithFile');
-
+    WorkWithFile = new WorkWithFile
 }
 
 // --------- Класс-Родитель сборщика с кранов ------------
 // Конструктор родителя пишет свойства конкретного объекта
 function Fauset() {
 
-    this.enable = false;
+    this.enabled = false;
     this.fausetName = '';
     this.fausetURL = '';
     this.fausetLogin = '';
@@ -38,15 +38,45 @@ function Fauset() {
 }
 // Методы хранятся в прототипе
 //todo подключить класс proxy
+Fauset.prototype.checkConfig = function () {
+    if (!this.fausetName) {
+        throw new Error('Fauset Name not defined.');
+    } else if (!this.enabled) {
+        throw new Error(this.fausetName + ' not enabled.');
+    } else if (!this.fausetURL) {
+        throw new Error('Fauset URL not defined for ' + this.fausetName + '.');
+    } else if (!this.fausetLogin) {
+        throw new Error('Fauset Login not defined for ' + this.fausetName + '.');
+    } else if (!this.fausetPass) {
+        throw new Error('Fauset Pass not defined for ' + this.fausetName + '.');
+    } else if (!this.fausetBTCWallet) {
+        throw new Error('Fauset BTC Wallet not defined for ' + this.fausetName + '.');
+    } else if (!this.fausetRefer) {
+        throw new Error('Fauset Refer not defined for ' + this.fausetName + '.');
+    } else {
+        return true;
+    }
+};
+
 Fauset.prototype.clearCookies = function () {
     iimPlayCode('CLEAR');
 };
-Fauset.prototype.load_FromFile = function (fileName) {
-    WorkWithFile = new WorkWithFile;
-    var obj = WorkWithFile.readJSONFromFile(fileName).fausetName;
-    for (var key in obj) {
-        this[key] = obj[key]
+
+Fauset.prototype.loadFromFile = function (fileName) {
+    var obj = false;
+    if (obj = WorkWithFile.readJSONFromFile(fileName)) {
+        if (obj = obj[this.fausetName]) {
+            for (var key in obj) {
+                this[key] = obj[key];
+            }
+        }
     }
+};
+
+Fauset.prototype.saveToFile = function (fileName) {
+    var save = {};
+    save[this.fausetName] = {lastSbor: this.lastSbor};
+    WorkWithFile.saveJSONToFile(fileName, save);
 };
 
 

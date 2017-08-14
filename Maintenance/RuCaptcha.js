@@ -88,6 +88,9 @@ function RuCaptcha() {
  */
 RuCaptcha.prototype.reportWrongAnswer = function (id) {
     try {
+        if (!this.key) {
+            throw new Error('ruCaptcha apiKey not defined.');
+        }
         var url = "http://rucaptcha.com/res.php";
         var params = "key=" + this.key + "&action=reportbad&id=" + id + "&json=1";
         this.request(url, params);
