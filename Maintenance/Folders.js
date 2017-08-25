@@ -2,10 +2,11 @@
  * Created by Igup on 15.04.2017.
  */
 
-js.module = function (path) {
-    js.loadedModules[path] = true;
-};
-js.module("Folders");
+
+if (typeof js !== 'undefined') {
+    js.module('Folders');
+
+}
 
 //Определение путей
 Folders = function Folders() {

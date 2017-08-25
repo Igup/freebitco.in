@@ -57,6 +57,7 @@ function RuCaptcha() {
             if (xhr.status !== 200) throw new Error('Connection Error:' + xhr.status + ' ' + xhr.responseText);
             try {
                 //todo вставить обработку конкретных ошибок https://rucaptcha.com/api-rucaptcha#error_handling и настроить тамауты https://rucaptcha.com/api-rucaptcha#limits
+                //добавить обработку отрицательного баланса и нехватки свободных слотов
                 //window.console.log( xhr.responseText );
                 var res = JSON.parse(xhr.responseText);
             } catch (e) {
@@ -81,8 +82,43 @@ function RuCaptcha() {
     };
 }
 
-//todo добавить метод проверки баланса
-//todo добавить метод проверки текущей цены за капчу
+/**
+ *
+ * @returns {*}
+ */
+RuCaptcha.prototype.getBalance = function () {
+    try {
+        if (!this.key) {
+            throw new Error('ruCaptcha apiKey not defined.');
+        }
+        var url = "http://rucaptcha.com/res.php";
+        var params = "key=" + this.key + "&action=getbalance" + "&json=1";
+        this.request(url, params);
+        if (ans.isSolved) {
+            return ans.answerText;
+        }
+    } catch (e) {
+    }
+    return false;
+};
+
+/**
+ *
+ * @returns {*}
+ */
+RuCaptcha.prototype.getCurrentRate = function () {
+    try {
+        var url = "http://rucaptcha.com/load.php";
+        var params = "";
+        this.request(url, params);
+        if (ans.isSolved) {
+            return parseFloat(ans.answerText.split(/\s+/)[3]);
+        }
+    } catch (e) {
+    }
+    return false;
+};
+
 /**
  * @param id
  */
@@ -93,7 +129,11 @@ RuCaptcha.prototype.reportWrongAnswer = function (id) {
         }
         var url = "http://rucaptcha.com/res.php";
         var params = "key=" + this.key + "&action=reportbad&id=" + id + "&json=1";
-        this.request(url, params);
+        var ans = this.request(url, params);
+        if (ans.isSolved) {
+            return ans.answerText;
+        }
+
     } catch (e) {
     }
 };
@@ -101,7 +141,7 @@ RuCaptcha.prototype.reportWrongAnswer = function (id) {
 /**
  *
  * @param options
- * @returns {{isSolved: boolean, hasError: boolean, errorText: string, answerText: string, ruCaptchaID: string, Price: number}}
+ * @returns {{isSolved: boolean, hasError: boolean, errorText: string, answerText: string, captchaID: string, Price: number}}
  */
 RuCaptcha.prototype.getAnswer = function (options) {
     var url = '';
@@ -113,7 +153,7 @@ RuCaptcha.prototype.getAnswer = function (options) {
         hasError: false,
         errorText: '',
         answerText: '',
-        ruCaptchaID: '',
+        captchaID: '',
         Price: 0
     };
     try {
@@ -149,9 +189,9 @@ RuCaptcha.prototype.getAnswer = function (options) {
         params = params + proxy + soft_id;
         var ans = this.request(url, params);
         if (ans.isSolved) {
-            answer.ruCaptchaID = ans.answerText;
+            answer.captchaID = ans.answerText;
             url = "http://rucaptcha.com/res.php";
-            params = "key=" + this.key + "&action=get2&id=" + answer.ruCaptchaID + "&json=1";
+            params = "key=" + this.key + "&action=get2&id=" + answer.captchaID + "&json=1";
             iimPlayCode('WAIT SECONDS=20');
             ans = this.request(url, params);
             if (ans.isSolved) {
@@ -166,7 +206,7 @@ RuCaptcha.prototype.getAnswer = function (options) {
         }
     } catch (e) {
         answer.hasError = true;
-        answer.errorText = e.name + ': Captcha unsolved by ruCaptcha: ' + e.message + '\n stack: ' + e.stack;
+        answer.errorText = 'Captcha unsolved by ruCaptcha: ' + e.message;
     }
     return answer;
 };

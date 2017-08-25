@@ -5,7 +5,7 @@
 js.module = function (path) {
     js.loadedModules[path] = true;
 };
-js.module("ElementScreenshot");
+js.module('ElementScreenshot');
 
 ElementScreenshot = {
     Base64: function (elm) {
@@ -29,7 +29,7 @@ ElementScreenshot = {
                 curleft += obj.x;
             }
             return curleft;
-        }
+        };
         _findPosY = function (obj) {
             var curtop = 0;
             if (obj.offsetParent) {
@@ -44,28 +44,39 @@ ElementScreenshot = {
                 curtop += obj.y;
             }
             return curtop;
-        }
-        var x = _findPosX(elm);
-        var y = _findPosY(elm);
-        var width = elm.clientWidth;
-        var height = elm.clientHeight;
+        };
+
+        _getOffsetRect = function (elem) {
+            var box = elem.getBoundingClientRect();
+            var body = window.document.body;
+            var docElem = window.document.documentElement;
+            var scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
+            var scrollLeft = window.pageXOffset || docElem.scrollLeft || body.scrollLeft;
+            var clientTop = docElem.clientTop || body.clientTop || 0;
+            var clientLeft = docElem.clientLeft || body.clientLeft || 0;
+            var top = box.top + scrollTop - clientTop;
+            var left = box.left + scrollLeft - clientLeft;
+            return {top: Math.round(top), left: Math.round(left)}
+        };
+
+        //var x = _findPosX(elm);
+        //var y = _findPosY(elm);
+
+        var elrmTopLeft = _getOffsetRect(elm);
+        var x = elrmTopLeft.left;
+        var y = elrmTopLeft.top;
+        var p = 400;
+        var k = p / (elm.clientWidth + elm.clientHeight);
+
         var cnvs = window.document.createElement("canvas");
         cnvs.setAttribute("id", "acanvas");
-
-        cnvs.width = width;
-        cnvs.height = height;
+        cnvs.width = k * elm.clientWidth;
+        cnvs.height = k * elm.clientHeight;
         var ctx = cnvs.getContext("2d");
-        // To take a snapshot of entire window
-        // ctx.drawWindow(mainWindow.content, 0, 0, mainWindow.innerWidth, mainWindow.innerHeight, "rgb(255,255,255)");
-        ctx.drawWindow(_mainWindow.content, x, y, width, height, "rgb(255,255,255)");
-        /**
-        var cnvs2 = window.document.createElement("canvas");
-        cnvs2.width = 266;
-        cnvs2.height = 133;
-        ctx = cnvs2.getContext("2d");
-        ctx.drawImage(cnvs, 0, 0, cnvs2.width, cnvs2.height);
-         */
+        ctx.scale(k, k);
+        ctx.drawWindow(_mainWindow.content, x, y, elm.clientWidth, elm.clientHeight, "rgb(255,255,255)");
+
         //return (cnvs2.toDataURL().replace(/^data:image\/(png|jpg);base64,/, ""));
         return (cnvs.toDataURL());
     }
-}
+};
